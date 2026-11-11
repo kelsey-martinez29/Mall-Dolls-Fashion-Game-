@@ -1,0 +1,8 @@
+export type Point={x:number,y:number,dx:number,dy:number,radius:number};
+export type Adjustment={x:number,y:number,width:number,height:number,angle:number,points:Point[]};
+export type FitMap=Record<string,Adjustment>;
+export const originalFit=():Adjustment=>({x:0,y:0,width:100,height:100,angle:0,points:[]});
+export const resolveFit=(data:FitMap,id:string,doll:number)=>data[`${id}:${doll}`]||data[`${id}:all`]||originalFit();
+export function fitCenter(cat:string):[number,number]{return cat==='Shoes'?[510,1320]:cat==='Hair / Hats'?[510,160]:cat==='Jewelry'?[510,345]:cat==='Purses'?[350,820]:cat==='Bottoms'?[530,650]:[520,470];}
+export function validateAdjustment(v:unknown):Adjustment{const a=v as Adjustment;if(!a)throw Error('Invalid fit');for(const [k,min,max] of [['x',-500,500],['y',-600,600],['width',25,250],['height',25,250],['angle',-180,180]] as const){if(typeof a[k]!=='number'||!Number.isFinite(a[k])||a[k]<min||a[k]>max)throw Error('Invalid fit control');}if(!Array.isArray(a.points)||a.points.length>16)throw Error('Use up to 16 points');for(const p of a.points)if(!p||![p.x,p.y,p.dx,p.dy,p.radius].every(Number.isFinite)||p.x<0||p.x>1024||p.y<0||p.y>1536||Math.abs(p.dx)>150||Math.abs(p.dy)>150||p.radius<30||p.radius>400)throw Error('Invalid point');return {x:a.x,y:a.y,width:a.width,height:a.height,angle:a.angle,points:a.points.map(p=>({x:p.x,y:p.y,dx:p.dx,dy:p.dy,radius:p.radius}))};}
+export function updateFit(data:FitMap,id:string,scope:string,a:Adjustment){const next={...data};if(scope==='all')for(let i=0;i<4;i++)delete next[`${id}:${i}`];next[`${id}:${scope}`]=a;return next;}
