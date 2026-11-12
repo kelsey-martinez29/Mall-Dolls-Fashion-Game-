@@ -1,26 +1,49 @@
 # Mall Dolls ✦
 
-A multiplayer Y2K fashion game by Kelsey Martinez. You and your friends get 60 seconds to dress for a theme. Then each doll gets eight seconds on the runway, and everyone else decides how well the outfit fits the theme.
+**A multiplayer Y2K fashion challenge**
 
-**[Play Mall Dolls](https://mall-dolls-kelsey.kelseymartinez12.chatgpt.site)** · 2–8 players · Each player uses their own device
+[Play Mall Dolls](https://mall-dolls-kelsey.kelseymartinez12.chatgpt.site)
 
-![The four illustrated Mall Dolls characters](media/mall-dolls-lineup.jpg)
+Mall Dolls is a multiplayer fashion game for **2–8 players**, each on their own device. Players style illustrated dolls to match a theme, compete on the runway, and vote for their favorite looks.
+
+![Four illustrated Mall Dolls characters](media/mall-dolls-lineup.jpg)
+
+*Character lineup artwork from the game. A verified homepage screenshot has not yet been added.*
+
+## Game features
+
+- **Private multiplayer rooms:** host a party, share a room code, and join from separate devices.
+- **Four playable dolls:** choose a character and nickname.
+- **Three fashion themes:** Cyberpunk, Dollette, and Glamoratti.
+- **Timed styling:** 60 seconds to build a look for each round.
+- **Runway voting:** 8 seconds per look and a 1–4 star rating system; players cannot vote for themselves.
+- **Scoring and winners:** average ratings determine round scores; the highest total after three rounds wins.
+- **Theme-specific wardrobes:** 96 clothing and accessory pieces across eight categories.
+- **Owner-only Fitting Studio:** adjust garment placement, scale, rotation, and shapes without exposing editing controls to players.
+- **Server-validated game rules:** enforces shopping deadlines, item availability, voting windows, and rematches.
 
 ## How to play
 
-1. Pick a doll and nickname. Host a party and share the room code, or enter a friend's code to join.
-2. Once everyone is ready, the host starts the game. Shop three themed closets in order: **Cyberpunk**, **Dollette**, and **Glamoratti**. The clothing only unlocks during each timed shopping round.
-3. Watch each look and vote from **1 star** (“So off brand”) to **4 stars** (“You are the IT Girl!”). You can't vote on your own outfit. Each round's score is the average rating. The highest total after three rounds wins, and tied players share the crown.
+1. Choose your doll and nickname.
+2. Host a room or join with a friend's code.
+3. When all players are ready, the host starts the game.
+4. Style an outfit during each 60-second shopping round.
+5. Vote on other players' runway looks, then compete for the final crown.
 
-## What I built
+## Technology and architecture
 
-I designed the themes, wardrobe, voting system, and doll aesthetic, and used AI-assisted development to build and iterate on the game. I learned to host it with Sites and use a backend for both the multiplayer rooms and my own editing tools.
+The live game uses **React, TypeScript, Cloudflare Workers, and D1 storage**. This repository is a **portfolio showcase** with selected implementation files and artwork, not the complete live application.
 
-The hardest part was making flat illustrations look like clothing the dolls were actually wearing. Rotating a whole top could fix one strap while moving the waist out of place. I added an owner-only **Fitting Studio** where I can move, resize, rotate, or reshape one part of an item, preview it on all four dolls, and save the fit back into the game. The closet has 96 pieces across three themes and eight categories.
+- [Game rules and scoring](src/game.ts)
+- [Wardrobe fitting logic](src/fittings.ts)
+- [Character lineup](media/mall-dolls-lineup.jpg)
 
-## Inside the project
+## Homepage screenshot
 
-- [Multiplayer game rules](src/game.ts) — The server checks the clock before accepting an action. Once shopping closes, the outfit locks for the runway. This file also handles voting and round scores.
-- [Wardrobe fitting logic](src/fittings.ts) — Stores adjustments by item and doll and validates the shape points used to refine garments.
+To display an authentic homepage capture, add `media/homepage.png` and embed it here:
 
-The live app uses React and TypeScript, a Cloudflare Worker, and D1 storage. This portfolio repository includes selected implementation files and game artwork. The playable multiplayer version is hosted on Sites.
+`![Mall Dolls homepage](media/homepage.png)`
+
+## What I learned
+
+I designed the game concept, fashion themes, doll aesthetic, and gameplay flow using AI-assisted development. A major challenge was aligning illustrated garments to different doll shapes. Building a private Fitting Studio made it easier to refine pieces without changing the player experience.
